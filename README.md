@@ -1,4 +1,2 @@
-angularjs
-=========
+菜鸟学习AngularJS
 
-angularjs
