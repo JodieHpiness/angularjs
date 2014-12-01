@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Bind</title>
+	<link rel="stylesheet" href="http://cdn.jsdelivr.net/foundation/5.0.2/css/foundation.min.css">
+</head>
+<body ng-app>
+	<input type="text" ng-model="data.msg">
+	<h1>{{data.msg + "world"}}</h1>
+	<div class="{{data.msg}}">
+		Wrap me with a foundation component
+	</div>
+	<script src="../lib/angular.js"></script>
+</body>
+</html>
