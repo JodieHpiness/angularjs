@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="UTF-8">
+	<title>click</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="BoxCtrl">
+		<div style="width: {{w}}px; height: {{h}}px; background: #39f;"
+			ng-click="click()">
+		</div>
+		<p>{{w}}X{{h}}</p>
+		<input type="text" ng-model="w"><br>
+		<input type="text" ng-model="h">
+
+
+	</div>
+
+	<script src="../lib/angular.js"></script>
+	<script>
+	var myApp = angular.module("myApp", []);
+	myApp.controller("BoxCtrl", function($scope){
+		$scope.w = 100;
+		$scope.h = 100;
+
+		$scope.click = function(){
+			$scope.w += 10;
+			$scope.h += 10;
+
+		}
+	})
+	</script>
+
+</body>
+</html>
