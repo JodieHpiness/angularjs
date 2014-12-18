@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body ng-app="myApp">
+	
+	<div ng-controller="Ctrl">
+		
+		{{ menu }}
+	</div>
+
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module("myApp", [])
+		myApp.controller("Ctrl", ['$scope', function($scope){
+			$scope.menu = [1,2,3,4,5];
+		}])
+	</script>
+</body>
+</html>
