@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>accordion</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="Controller">
+		<accordion>
+			<expander class="expander" ng-repeat="expander in expanders" expander-title="expander.title">{{expander.text}}</expander>
+		</accordion>
+	</div>
+
+	<script src='../lib/angular.js'></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.controller('Controller', function($scope){
+			$scope.expanders = [{ title: 'title 1', text: 'content 1' },
+								{ title: 'title 2', text: 'content 2' },
+								{ title: 'title 3', text: 'content 3' }];
+		})
+		myApp.directive('accordion', function(){
+			return {
+				restrict: 'EA',
+				replace: true,
+				transclude: true,
+				template: '<div ng-transclude></div>',
+				controller: function(){
+					var expanders = [];
+					this.gotOpened = function(selectedExpander){
+						angular.forEach(expanders, function(expander){
+							if(selectedExpander != expander){
+								expander.showMe = false;
+							}
+						})
+					}
+					this.addExpander = function(expander){
+						expanders.push(expander);
+					}
+				}
+			}
+		})
+		myApp.directive('expander', function(){
+			return {
+				retrict: 'EA',
+				replace: true,
+				transclude: true,
+				require: '^?accordion',
+				scope: {
+					title: '=expanderTitle'
+				},
+				template: '<div><div class="title" ng-click="toggle()">{{title}}</div>'+
+						 	  +'<div class="body" ng-show="showMe" ng-transclude></div></div>',
+				link: function(scope, element, attrs, accordionController){
+					scope.showMe = false;
+					accordionController.addExpander(scope);
+					scope.toggle = function(){
+						scope.showMe = !scope.showMe;
+						accordionController.gotOpened(scope);
+					}
+				}
+
+			}
+		})
+	</script>
+</body>
+</html>

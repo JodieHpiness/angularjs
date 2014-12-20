@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>draggable</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myController">
+		<div my-draggable></div>
+	</div>
+
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.controller('myController', ['$scope', function($scope){
+
+		}]);
+		myApp.directive('myDraggable', function($document){
+			return function(scope, element, attr){
+				var startX = 0, startY = 0, x = 0, y = 0;
+
+				element.css({
+					position: 'relative',
+					width: '100px',
+					height: '100px',
+					border: '1px solid red',
+					backgroundColor: 'lightgrey',
+					cursor: 'pointer'
+				})
+
+				element.on('mousedown', function(event){
+					event.preventDefault();
+					startX = event.pageX - x;
+					startY = event.pageY - y;
+					$document.on('mousemove', mousemove);
+					$document.on('mouseup', mouseup);
+				})
+
+				function mousemove(event){
+					y = event.pageY - startY;
+					x = event.pageX - startX;
+					element.css({
+						top: y + 'px',
+						left: x + 'px'
+					})
+				}
+
+				function mouseup(){
+					$document.unbind('mousemove', mousemove);
+					$document.unbind('mouseup', mouseup);
+				}
+
+			}
+		})
+
+	</script>
+</body>
+</html>

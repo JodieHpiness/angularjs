@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tabs // can't work</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="mainCtrl">
+		<my-tabs>
+			<my-pane title="Hello">
+				<h5>Hello</h5>
+				<p>Hello Hello Hello Hello Hello Hello </p>
+			</my-pane>
+		</my-tabs>
+		<my-tabs>
+			<my-pane title="World">
+				<h5>World</h5>
+				<p>World World World World World World World </p>
+			</my-pane>
+		</my-tabs>
+	</div>
+
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.controller("mainCtrl", ['$scope', function($scope){ }]);
+		myApp.directive('myTabs', function(){
+			return {
+				restrict: 'E',
+				transclude: true,
+				scope: {},
+				controller: function($scope){
+					var panes = $scope.panes = [];
+
+					$scope.select = function(pane){
+						angular.forEach(panes, function(pane){
+							pane.selected = false;
+						});
+						pane.selected = true;
+					}
+
+					this.addPane = function(pane){
+						if(panes.length == 0){
+							$scope.select(pane);
+						}
+						panes.push(pane);
+					}
+				},
+				template: '<div>'+
+							 '<ul>'+
+								'<li ng-repeat="pane in panes">'+
+									'<a href="" ng-click="select(pane)">{{pane.title}}</a>' +
+								'</li>'+
+							 '</ul>'+
+						   '</div>'
+			}
+		})
+		myApp.directive('myPane', function(){
+			return {
+				require: '^myTabs',
+				restrict: 'E',
+				transclude: true,
+				scope: {
+					title: '@'
+				},
+				link: function(scope, element, attrs, tabsCtrl){
+					tabsCtrl.addPane(scope);
+				},
+				template: '<div ng-show="selected" ng-transclude></div>'
+			}
+		})
+	</script>
+</body>
+</html>
