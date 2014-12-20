@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>directive 5: scope</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="MyController">
+		<my-fruit info="apple"></my-fruit>
+	</div>
+
+	<script src='../lib/angular.js'></script>
+	<script>
+		var app = angular.module("myApp", []);
+		app.controller('MyController', ['$scope', function($scope){
+			$scope.apple = {'name':'Apple', 'price':32.221};
+			$scope.peach = {'name':'Peach', 'price':1.23};
+		}])
+		.directive('myFruit', function(){
+			return {
+				restrict: 'E',
+				scope: {
+					fruit: '=info'
+				},
+				template: 'Name: {{fruit.name}} ____ Price: {{fruit.price | currency}} <br />'+
+						  'Name: {{peach.name}} ____ Price: {{peach.price | currency}}'
+			}
+		})
+	</script>
+</body>
+</html>

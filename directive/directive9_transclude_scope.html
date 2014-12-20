@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>different scope </title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="MyController">
+		<my-scope>Find my scope:{{name}} </my-scope>
+	</div>
+
+	<script src='../lib/angular.js'></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.controller('MyController', ['$scope', function($scope){
+			$scope.name = "this scope comes from controller..";
+		}])
+		.directive('myScope', function(){
+			return {
+				restrict: 'E',
+				transclude: true,
+				scope: {},
+				template: '<div ng-transclude class={{name}}></div>',
+				link: function(scope, element){
+					scope.name = 'the scope of directive..';
+				}
+			}
+		})
+	</script>
+</body>
+</html>

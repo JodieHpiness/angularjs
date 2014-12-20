@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>directive 6: scope & @ =</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="MyController">
+		Food: <input type="text" ng-model="food"><br>
+		Count: <input type="text" ng-model="count" ng-init="0">
+		<my-scope info="food" on-eat="eat()" name="{{food}}" count="count = count + 1"></my-scope>
+	</div>
+	
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.controller("MyController", ['$scope', function($scope){
+			$scope.food = "apple";
+			$scope.eat = function(){
+				$scope.food = "half of apple";
+			}
+		}])
+		.directive('myScope', function(){
+			return {
+				scope: {
+					info: '=',
+					eat: '&onEat',
+					name: '@',
+					count: '&'
+				},
+				restrict: 'E',
+				template: '<div><button ng-click="eat()">Eat</button>'+
+							'<p>info: {{info}}</p>'+
+							'<p>name: {{name}}<p>'+
+							'<button ng-click="count()">Count</button></div>'
+			}
+		})
+	</script>
+
+</body>
+</html>

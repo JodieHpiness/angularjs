@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>directive transclude</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="MyController">
+		lalallalal...
+		<my-food>My favorite food is {{food}}</my-food>		
+	</div>
+
+	<script src='../lib/angular.js'></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.controller("MyController", ['$scope', function($scope){
+			$scope.food = "fish";
+		}])
+		.directive('myFood', function(){
+			return {
+				restrict: 'E',
+				transclude: false,
+				template: '<div ng-transclude></div>'
+			}
+		})
+	</script>
+</body>
+</html>
