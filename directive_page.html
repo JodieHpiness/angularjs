@@ -6,15 +6,45 @@
 </head>
 <body ng-app="myApp">
 	<div ng-controller="mainCtrl">
-		
-		<page></page>
+		<input type="text" ng-model="pages.count">
+		<input type="text" ng-model="pages.page">
+		<pagination count='pages.count' page='pages.page' size='pages.size'></pagination>
 	</div>
 
-	<script src="">
+	<script src="lib/angular.js"></script>
+	<script>
 		var myApp = angular.module("myApp", []);
 		myApp.controller("mainCtrl", ['$scope', function($scope){
-			
+			$scope.pages = {count: 121, page: 0, size: 10}
 		}])
+		myApp.directive('pagination', function(){
+			return {
+				restrict: 'E',
+				scope: {
+					count: '=count',
+					page: '=page',
+					size: '=size'
+				},
+                replace: true,
+				templateUrl: 'directive_page_template.html' ,
+				link: function(scope, element, attrs, ctrl){
+					scope.pageVos = [];
+
+					var changePage = function(){
+						scope.pageVos = [];
+						scope.pagecount = Math.ceil(scope.count/scope.size);
+						for(var i=0; i<scope.pagecount; i++) scope.pageVos.push(i);	
+					}
+                    
+                    scope.changePage = function(page){
+                        console.log(page);
+                    }
+
+					scope.$watch('count', changePage)
+                    scope.$watch('page', changePage)
+				}
+			}
+		})
 	</script>
 </body>
 </html>
