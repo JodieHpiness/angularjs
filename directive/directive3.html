@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>directive 3:  show different fruits</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="AppleCtrl">
+		<my-fruit></my-fruit>
+	</div>
+	<div ng-controller="OrangeCtrl">
+		<my-fruit></my-fruit>
+	</div>
+
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module("myApp", []);
+		myApp.controller("AppleCtrl", ['$scope', function($scope){
+			$scope.fruit = {name:"Apple", price:"3.33"};
+		}])
+		.controller("OrangeCtrl", ['$scope', function($scope){
+			$scope.fruit = {name:"orange", price:"345.342"};
+		}])
+		.directive("myFruit", function(){
+			return {
+				restrict: "E",
+				template: "Name: {{fruit.name}} ___ Price: {{fruit.price | currency:'¥'}}"
+			}
+		})
+	</script>
+</body>
+</html>

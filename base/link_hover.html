@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>link hover</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="mainCtrl" ng-init="flag = false">
+		<a href="javascript:;" ng-mouseover="flag = true" ng-mouseout=" flag = false">This is a link</a>
+		<p ng-show="flag">This is a hidden message</p>	
+	</div>
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.controller('mainCtrl', ['$scope', function($scope){
+		}])
+	</script>
+</body>
+</html>

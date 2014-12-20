@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>directive 2</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="MyController">
+		<div my-order></div>
+	</div>
+
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.controller("MyController", ['$scope', function($scope){
+			$scope.orders = [{name:'apple1', price:'3.1'},
+							{name:'apple2', price:'3.2'},
+							{name:'apple3', price:'3.3'}]
+
+		}])
+		.directive("myOrder", function(){
+			return {
+				templateUrl: "directive2_template.html"
+			}
+		})
+	</script>
+</body>
+</html>

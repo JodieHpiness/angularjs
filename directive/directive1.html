@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>directive</title>
+</head>
+<body ng-app="myApp">
+	
+	<div ng-controller="MyCtrl">
+		<div my-friend></div>
+	</div>
+	
+
+	<script src="../lib/angular.js"></script>
+	<script>
+		angular.module("myApp", [])
+			.controller("MyCtrl", function($scope){
+				$scope.customer = {
+					'name':'April',
+					'address': 'No. 95 Block'
+				};
+			})
+			.directive("myFriend", function(){
+				return {
+					template:"Name: {{customer.name}} <br/> Address: {{customer.address}}"
+				}
+			})
+	</script>
+</body>
+</html>
