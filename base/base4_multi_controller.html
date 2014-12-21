@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>multi controller</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="firstController">
+		<input type="text" ng-model="name">
+		{{name}}
+
+		<div ng-controller="secondController">
+			<input type="text" ng-model="name">
+		</div>
+
+	</div>
+
+	<script src="../lib/angular.js"></script>
+	<script>
+
+		var myApp = angular.module('myApp', []);
+		myApp.controller('firstController', ['$scope', function($scope){
+			$scope.name = "this is first controller' s name";
+		}])
+		.controller('secondController', ['$scope', function($scope){
+
+		}])
+
+
+
+		// function A(){
+		// 	var name = "jodie";
+		// 	this.B = function(){
+		// 		var name = 'lalal';
+		// 		alert(name);
+		// 	}
+		// }
+		// var a = new A();
+		// a.B();
+
+	</script>
+
+</body>
+</html>
