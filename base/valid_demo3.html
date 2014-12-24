@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>validation</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="FormController">
+		<input type="text" ng-model="name" unique-username>
+	</div>
+
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.controller('FormController', ['$scope', function($scope){
+
+		}])
+		myApp.directive('uniqueUsername', ['$http', function($http){
+			return {
+				require: 'ngModel',
+				link: function(scope, ele, attrs, ctrl){
+					scope.$watch(attrs.ngModel, function(){
+						$http({
+							method: 'POST',
+							url: '/check.do',
+							data: {'param': attrs.uniqueUsername}
+						}).success(function(data){
+							ctrl.$setValidity('unique', data.isUnique);
+						}).error(function(data){
+							ctrl.$setValidity('unique', false);
+						})
+					})
+				}
+			}
+		}])
+	</script>
+</body>
+</html>

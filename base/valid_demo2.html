@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>valid</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="FormController">
+		<form name="form" novalidate>
+			<input type="text" name="name" ng-model="name" required ng-minlength=5 ng-maxlength=15>
+			<div ng-show="!form.$valid" style="color: red;">
+				<span ng-show="form.name.$error.required">required</span>
+				<span ng-show="form.name.$error.minlength">minlength = 5</span>
+				<span ng-show="form.name.$error.maxlength">maxlength = 15</span>
+			</div>
+
+			<input type="text" name="p1" ng-model="p1" ng-partten="">
+		</form>
+	</div>
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.controller('FormController', ['$scope', function($scope){
+
+		}])
+	</script>
+</body>
+</html>

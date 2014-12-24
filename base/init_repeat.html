@@ -6,8 +6,8 @@
 </head>
 <body ng-app="myApp">
 	<div ng-controller="mainCtrl">
-		<ul ng-repeat="">
-			<li></li>
+		<ul ng-repeat="i in [1,2,3,4,5,6,7] | limitTo: 3 | limitTo: -3">
+			<li>{{i}}</li>
 		</ul>
 	</div>
 	<script src="../lib/angular.js"></script>
