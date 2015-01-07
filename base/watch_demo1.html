@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>watch</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<input type="text" ng-model="user.name"><br>
+		<input type="text" ng-model="user.age"><br>
+		<input type="text" ng-model="user.grade"><br>
+		<input type="text" ng-model="user.money"><br>
+	</div>
+
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module("myApp", []);
+		myApp.controller('myCtrl', function($scope){
+			$scope.user = {name:'jodie', age:10, grade:90, money:1000};
+
+			$scope.$watch('user', function(newOne, oldOne, title){
+				console.log(newOne);
+				console.log(oldOne);
+				console.log(title);
+			}, true)
+		})
+	</script>
+</body>
+</html>
