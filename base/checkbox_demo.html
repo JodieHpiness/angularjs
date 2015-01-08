@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>checkbox</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<input type="checkbox" ng-model="checkAll" ng-click="checkAll=true">全选
+		<input type="checkbox" ng-model="checkOpp" ng-click="checkOppFun()" >反选
+
+		<input type="checkbox" ng-checked="checkAll" name="ids" class="ids" value="1">
+		<input type="checkbox" ng-checked="checkAll" name="ids" class="ids" value="2">
+		<input type="checkbox" ng-checked="checkAll" name="ids" class="ids" value="3">
+		<input type="checkbox" ng-checked="checkAll" name="ids" class="ids" value="4">
+		<input type="checkbox" ng-checked="checkAll" name="ids" class="ids" value="5">
+	</div>
+
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.controller("myCtrl", ['$scope', function($scope){
+			$scope.checkAll = false;
+			$scope.checkOpp = false;
+
+			$scope.checkOppFun = function(){
+				var checkboxs = document.querySelectorAll('[name="ids"]');
+				for(var index in checkboxs){
+					var one = checkboxs[index];
+					one.checked = !one.checked;
+				}
+			}
+
+		}])
+	</script>
+</body>
+</html>
