@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>radio value</title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<input type="radio" name="myRadio" ng-model="myRadio" value="1"> 通过
+		<input type="radio" name="myRadio" ng-model="myRadio" value="0"> 不通过
+		{{myRadio}}	
+	</div>
+	
+	<script src="../lib/angular.js"></script>
+	<script>
+		var myApp = angular.module("myApp", []);
+		myApp.controller("myCtrl", function($scope){
+		}) 
+	</script>
+</body>
+</html>
